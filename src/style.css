@@ -175,6 +175,7 @@ body::before {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  flex: 0 0 auto;
 }
 
 .rail a:hover {
@@ -682,17 +683,30 @@ p {
 @media (max-width: 960px) {
   .rail {
     left: 50%;
+    right: auto;
     top: auto;
-    bottom: 0.9rem;
+    bottom: 0.7rem;
     transform: translateX(-50%);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.35rem;
+    width: calc(100dvw - 1rem);
+    max-width: calc(100dvw - 1rem);
+    min-width: 0;
+    overflow: hidden;
+    scrollbar-width: none;
     background: rgba(10, 14, 20, 0.8);
-    padding: 0.45rem;
+    padding: 0.42rem;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 0.9rem;
     backdrop-filter: blur(14px);
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
   }
 
   .slide {
@@ -718,8 +732,14 @@ p {
   }
 
   .rail a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 calc((100% - 0.7rem) / 3);
+    white-space: nowrap;
     font-size: 0.68rem;
-    padding: 0.35rem 0.7rem;
+    padding: 0.33rem 0.6rem;
+    border-radius: 0.5rem;
   }
 }
 

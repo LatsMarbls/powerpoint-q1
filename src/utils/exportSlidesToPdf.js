@@ -51,6 +51,7 @@ const forceExportTextColors = (rootElement) => {
     card.style.setProperty('background', '#fff', 'important')
     card.style.setProperty('border-color', '#d0d0d0', 'important')
     card.style.setProperty('box-shadow', 'none', 'important')
+    card.style.setProperty('animation', 'none', 'important')
     card.style.setProperty('opacity', '1', 'important')
     card.style.setProperty('filter', 'none', 'important')
   })
@@ -90,6 +91,8 @@ export const exportSlidesToPdf = async ({
         useCORS: true,
         scrollX: 0,
         scrollY: -window.scrollY,
+        windowWidth: 1280,
+        windowHeight: Math.max(slide.scrollHeight, 900),
         onclone: (clonedDocument) => {
           clonedDocument.documentElement.classList.add('exporting-pdf')
 

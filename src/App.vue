@@ -144,7 +144,7 @@ const slideLinks = [
   { label: 'Journey', id: 'journey' },
   { label: 'Learnings', id: 'learnings' },
   { label: 'Projects', id: 'accomplishments' },
-  { label: 'Personal Growth', id: 'personalgrowth' },
+  { label: 'Growth', id: 'personalgrowth' },
   { label: 'April', id: 'april' },
   { label: 'Plans', id: 'plans' },
 ]
