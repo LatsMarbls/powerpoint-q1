@@ -68,7 +68,7 @@ const aprilPlans = [
   'Deliver tasks faster with improved quality',
   'Reduce QA issues through better development practices',
   'Strengthen understanding of full project lifecycle',
-  'Take more ownership in features and technical decisions',
+  'Improve leadership',
 ]
 
 const improvementAreas = [
@@ -76,7 +76,7 @@ const improvementAreas = [
   'Strengthen system architecture thinking',
   'Enhance code quality to minimize QA fixes',
   'Improve time management and prioritization',
-  'Build confidence in handling critical tasks independently',
+  'Build confidence in handling projects',
 ]
 
 
