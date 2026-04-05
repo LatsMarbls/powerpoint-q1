@@ -10,6 +10,7 @@
   --accent: #0f766e;
   --accent-soft: #d2ece7;
   --accent-2: #b45309;
+  --accent-3: #a63f13;
   --shadow: 0 24px 60px rgba(45, 39, 30, 0.12);
 }
 
@@ -84,6 +85,40 @@ body {
   justify-content: center;
 }
 
+.hero-shell {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.hero-stats {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.stat-tile {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 252, 245, 0.8);
+  box-shadow: var(--shadow);
+  padding: 0.85rem 1rem;
+}
+
+.stat-tile p {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.stat-tile strong {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.35rem;
+}
+
 .eyebrow {
   margin: 0;
   font-size: 0.75rem;
@@ -128,6 +163,11 @@ p {
   margin-top: 1.2rem;
 }
 
+.section-note {
+  margin-top: -0.4rem;
+  max-width: 66ch;
+}
+
 .hero-actions {
   display: flex;
   gap: 0.9rem;
@@ -136,6 +176,7 @@ p {
 }
 
 .btn {
+  font-family: inherit;
   text-decoration: none;
   border-radius: 999px;
   padding: 0.72rem 1.2rem;
@@ -143,10 +184,17 @@ p {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
 }
 
 .btn-solid {
@@ -180,6 +228,16 @@ p {
   padding: 1.1rem 1.2rem;
   box-shadow: var(--shadow);
   animation: slideUp 0.7s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(15, 118, 110, 0.1), transparent 50%);
+  pointer-events: none;
 }
 
 .metric-card span {
@@ -215,6 +273,18 @@ p {
   box-shadow: var(--shadow);
 }
 
+.feature-list {
+  margin: 1rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--text);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.feature-list li {
+  line-height: 1.45;
+}
+
 .showcase-block p,
 .showcase-block small {
   margin: 0;
@@ -247,9 +317,171 @@ p {
   padding: 1rem;
 }
 
+.phase-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.delay-warning {
+  border: 1px solid rgba(166, 63, 19, 0.38);
+  background: linear-gradient(130deg, #fff8ef, #fdeedc 78%);
+  color: #7c300f;
+  border-radius: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.phase-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 118, 110, 0.3);
+  background: linear-gradient(130deg, #f6fffc, #e8f7f2 72%);
+  padding: 0.85rem 1rem;
+}
+
+.phase-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.phase-card h3 {
+  margin-top: 0.45rem;
+  font-size: 1.15rem;
+}
+
+.phase-card-alt {
+  border-color: rgba(182, 91, 18, 0.35);
+  background: linear-gradient(130deg, #fffaf2, #fff0dc 74%);
+}
+
 .principle-card p {
   margin-top: 0.5rem;
   font-size: 0.95rem;
+}
+
+.growth-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.growth-main-card {
+  border-radius: 1.2rem;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #fffdf8, #f7f2e9 78%);
+  box-shadow: var(--shadow);
+  padding: 1.1rem;
+}
+
+.growth-main-card h3 {
+  margin-bottom: 0.9rem;
+}
+
+.growth-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.growth-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px dashed rgba(38, 35, 31, 0.2);
+}
+
+.growth-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.growth-index {
+  display: inline-flex;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.85rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #14665f);
+}
+
+.growth-highlight {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(15, 118, 110, 0.25);
+  background: linear-gradient(130deg, #f5fffd, #e5f4ef 80%);
+  box-shadow: var(--shadow);
+  padding: 1.1rem;
+}
+
+.growth-highlight h3 {
+  margin-top: 0.45rem;
+}
+
+.growth-highlight p {
+  margin-top: 0.7rem;
+}
+
+.growth-tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.growth-tags span {
+  border-radius: 999px;
+  border: 1px solid rgba(15, 118, 110, 0.35);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  max-width: 920px;
+  width: 100%;
+}
+
+.plan-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.plan-card h3 {
+  margin-bottom: 0.65rem;
+}
+
+.plan-card ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  display: grid;
+  gap: 0.45rem;
 }
 
 .outro {
@@ -265,6 +497,80 @@ p {
   color: #effcf8;
   background: linear-gradient(130deg, #232423, #123f3a);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calendar-wrap {
+  margin-top: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 252, 245, 0.88);
+  box-shadow: var(--shadow);
+  overflow: auto;
+}
+
+.calendar-wrap h3 {
+  padding: 1rem 1rem 0.65rem;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 860px;
+}
+
+.calendar-table th,
+.calendar-table td {
+  border-top: 1px solid var(--line);
+  padding: 0.7rem 0.8rem;
+  vertical-align: top;
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.calendar-table th {
+  font-family: 'Archivo', sans-serif;
+  color: var(--text);
+  background: rgba(15, 118, 110, 0.07);
+  white-space: nowrap;
+}
+
+.calendar-table tbody tr {
+  transition: background-color 0.25s ease;
+}
+
+.calendar-table tbody tr:hover {
+  background: rgba(15, 118, 110, 0.06);
+}
+
+.calendar-table .phase-one td:nth-child(3),
+.calendar-table .phase-two td:nth-child(3),
+.calendar-table .phase-neutral td:nth-child(3) {
+  font-weight: 600;
+}
+
+.calendar-table .phase-one td:nth-child(3) {
+  color: var(--accent);
+}
+
+.calendar-table .phase-two td:nth-child(3) {
+  color: var(--accent-2);
+}
+
+.calendar-table .phase-neutral td:nth-child(3) {
+  color: var(--accent-3);
+}
+
+.calendar-table td:first-child,
+.calendar-table td:nth-child(2),
+.calendar-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.project-block + .project-block {
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(38, 35, 31, 0.25);
 }
 
 @keyframes slideUp {
@@ -298,7 +604,220 @@ p {
 
   .split,
   .showcase-grid,
+  .hero-shell,
+  .growth-layout,
+  .phase-strip,
+  .plans-grid,
   .principles {
     grid-template-columns: 1fr;
+  }
+
+  .calendar-table {
+    min-width: 720px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #ffffff;
+    --card: #ffffff;
+    --line: #d0d0d0;
+    --shadow: none;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rail,
+  .hero-actions,
+  .btn {
+    display: none !important;
+  }
+
+  .deck {
+    scroll-snap-type: none;
+  }
+
+  .slide {
+    min-height: 0 !important;
+    height: auto !important;
+    max-width: 100%;
+    width: 100%;
+    padding: 0.1in 0 0.16in;
+    margin: 0;
+    display: block !important;
+    overflow: visible !important;
+    page-break-after: auto;
+    break-after: auto;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .slide,
+  .slide * {
+    color: #111 !important;
+  }
+
+  #accomplishments,
+  #personalgrowth,
+  #april,
+  #plans {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .calendar-wrap {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    overflow: visible;
+  }
+
+  .metric-card strong {
+    color: #111 !important;
+  }
+
+  .feature-list li,
+  .principle-card li,
+  .growth-list li,
+  .calendar-table td,
+  .calendar-table th {
+    color: #111 !important;
+  }
+
+  .calendar-table {
+    min-width: 0;
+    width: 100%;
+    font-size: 10pt;
+  }
+
+  .calendar-table th,
+  .calendar-table td,
+  .principle-card,
+  .showcase-block,
+  .phase-card,
+  .stat-tile,
+  .metric-card,
+  .terminal-like {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .principles,
+  .growth-layout,
+  .plans-grid,
+  .showcase-grid,
+  .phase-strip {
+    display: block !important;
+    width: 100%;
+  }
+
+  #accomplishments .principle-card {
+    padding: 0.1in 0.12in;
+    margin-bottom: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  #accomplishments .principle-card h3 {
+    margin-bottom: 0.05in;
+  }
+
+  #accomplishments .principle-card .eyebrow {
+    margin-top: 0.03in;
+    margin-bottom: 0.03in;
+  }
+
+  #accomplishments .principle-card ul {
+    margin: 0 0 0.05in;
+    padding-left: 0.16in;
+  }
+
+  #accomplishments .principle-card li {
+    font-size: 8pt;
+    line-height: 1.2;
+  }
+
+  #accomplishments .principle-card h3 {
+    font-size: 11pt;
+  }
+
+  #april .delay-warning,
+  #april .calendar-wrap,
+  #plans .principle-card,
+  #personalgrowth .growth-main-card,
+  #personalgrowth .growth-highlight {
+    margin-bottom: 0.1in;
+  }
+
+  #plans .plan-card {
+    padding: 0.1in 0.12in;
+  }
+
+  #plans .plan-card ul {
+    margin-top: 0.05in;
+    padding-left: 0.16in;
+  }
+
+  #plans .plan-card li {
+    font-size: 8pt;
+    line-height: 1.2;
+  }
+
+  .principle-card,
+  .growth-main-card,
+  .growth-highlight,
+  .plan-card,
+  .showcase-block,
+  .phase-card,
+  .calendar-wrap {
+    margin-bottom: 0.18in;
+    overflow: visible !important;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  #accomplishments .principle-card + .principle-card,
+  #plans .plan-card + .plan-card {
+    margin-top: 0.08in;
+  }
+
+  .principle-card h3,
+  .growth-main-card h3,
+  .growth-highlight h3,
+  .plan-card h3,
+  .phase-card h3,
+  .calendar-wrap h3 {
+    font-size: 13pt;
+  }
+
+  .slide p,
+  .slide li,
+  .calendar-table td,
+  .calendar-table th {
+    font-size: 9pt;
+    line-height: 1.35;
+  }
+
+  .calendar-table,
+  .calendar-table thead,
+  .calendar-table tbody,
+  .calendar-table tr,
+  .calendar-table th,
+  .calendar-table td {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 }

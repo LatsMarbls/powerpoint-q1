@@ -1,102 +1,330 @@
 <script setup>
-const quickStats = [
-  { label: 'Slides', value: '08' },
-  { label: 'Avg. Session', value: '04:20' },
-  { label: 'Clarity Score', value: '94%' },
+import { ref } from 'vue'
+import { exportSlidesToPdf } from './utils/exportSlidesToPdf'
+
+const keyLearnings = [
+  'Praxxys backend architecture and package structure',
+  'Coding standards, patterns, and best practices',
+  'System architecture and database design',
+  'API development and QA processes',
+  'Improved understanding of real-world project workflows',
 ]
 
-const principles = [
+const projectReports = [
   {
-    title: 'Minimal by default',
-    text: 'Every element has a job. No visual noise, no dead sections.',
+    project: 'MotorCentral',
+    workload: [
+      'Handled majority of backend implementation',
+    ],
+    bottlenecks: [
+      'Initial ramp-up while handling sudden workload increase',
+      'Early alignment challenges on project context and expectations',
+    ],
+    accomplishments: [
+      'Developed majority of end-to-end backend features',
+      'Successfully completed E2E, currently awaiting client feedback',
+    ],
   },
   {
-    title: 'Built for story flow',
-    text: 'Each screen behaves like a clean deck slide with strong hierarchy.',
+    project: 'Wildflour',
+    workload: [
+      'Handled backend/API tasks for Informative Pages and QA-related fixes',
+      'Took on progressively higher-priority and critical issue tickets',
+    ],
+    bottlenecks: [
+      'Adjustment period while shifting from low-priority to critical tasks',
+    ],
+    accomplishments: [
+      'Contributed to backend/API development in Informative Pages and QA fixes',
+      'Progressed from low-priority fixes to handling critical issues',
+    ],
   },
   {
-    title: 'Deploy-ready stack',
-    text: 'Vue + Vite with static output, perfect for Vercel hosting.',
+    project: 'Personal Collection',
+    workload: [
+      'Designed system architecture and database schema',
+      'Developed Entire backend system and API endpoints for E2E demo',
+    ],
+    bottlenecks: [
+      'Had to manage delivery quality while maintaining speed',
+      'Database design due to wordpress schema complexity and lack of prior experience',
+    ],
+    accomplishments: [
+      'Designed system architecture and database schema',
+      'Developed backend system',
+      'Delivered successful E2E demo and client endorsement',
+    ],
   },
 ]
 
-const slideLabels = ['Intro', 'Signal', 'Work', 'Method', 'Launch']
+const personalGrowth = [
+  'Improvement in development speed',
+  'Increased confidence in tasks',
+  'Managed multiple concurrent priorities across active projects',
+  'Increased responsibility in handling backend deliverables',
+]
+
+const aprilPlans = [
+  'Deliver tasks faster with improved quality',
+  'Reduce QA issues through better development practices',
+  'Strengthen understanding of full project lifecycle',
+  'Take more ownership in features and technical decisions',
+]
+
+const improvementAreas = [
+  'Improve debugging and problem-solving speed',
+  'Strengthen system architecture thinking',
+  'Enhance code quality to minimize QA fixes',
+  'Improve time management and prioritization',
+  'Build confidence in handling critical tasks independently',
+]
+
+
+const journeyStats = [
+  { label: 'Projects Managed', value: '3' },
+  { label: 'Main Focus', value: 'Backend Development' },
+  { label: 'Report Window', value: 'Jan-Apr' },
+]
+
+const aprilCalendar = [
+  {
+    week: 'Week 1',
+    dates: 'Apr 1-3',
+    phase: 'Phase 1: E2E Build',
+    focus: 'Kickoff E2E implementation for DOXO client demo',
+    output: 'Core E2E flow backend completion',
+  },
+  {
+    week: 'Week 2',
+    dates: 'Apr 6-8',
+    phase: 'Phase 1: E2E Build',
+    focus: 'Complete primary feature paths and integration checks',
+    output: 'Ecommerce backend completion which is around 60+ hours',
+  },
+  {
+    week: 'Week 3',
+    dates: 'Apr 13-17',
+    phase: 'Phase 1 Closure',
+    focus: 'Finalize E2E behavior and prepare for demo',
+    output: 'Loyalty Management and remaining features completion, client demo-ready E2E',
+  },
+  {
+    week: 'Week 4',
+    dates: 'Apr 20-24',
+    phase: 'Phase 2: QA Refinement',
+    focus: 'Fix QA findings and refinement of behavior',
+    output: 'Client demo-ready for E2E',
+  },
+]
+
+const isExporting = ref(false)
+
+const handleExport = async () => {
+  if (isExporting.value) return
+
+  isExporting.value = true
+
+  try {
+    await exportSlidesToPdf()
+  } catch (error) {
+    console.error('PDF export failed', error)
+    window.alert('Export failed. Please try again.')
+  } finally {
+    isExporting.value = false
+  }
+}
+
+const getPhaseClass = (phase) => {
+  if (phase.includes('Phase 1')) return 'phase-one'
+  if (phase.includes('Phase 2')) return 'phase-two'
+  return 'phase-neutral'
+}
+
+const slideLinks = [
+  { label: 'Journey', id: 'journey' },
+  { label: 'Learnings', id: 'learnings' },
+  { label: 'Projects', id: 'accomplishments' },
+  { label: 'Personal Growth', id: 'personalgrowth' },
+  { label: 'April', id: 'april' },
+  { label: 'Plans', id: 'plans' },
+]
 </script>
 
 <template>
   <main class="deck">
     <aside class="rail" aria-label="Slide navigation">
-      <a v-for="label in slideLabels" :key="label" :href="`#${label.toLowerCase()}`">
-        {{ label }}
+      <a v-for="link in slideLinks" :key="link.id" :href="`#${link.id}`">
+        {{ link.label }}
       </a>
     </aside>
 
-    <section id="intro" class="slide hero">
-      <p class="eyebrow">Latsmarbls Inspired</p>
-      <h1>Powerpoint-style website with modern minimal energy.</h1>
-      <p class="lead">
-        A focused one-page presentation designed for fast storytelling, subtle motion,
-        and confident deployment on Vercel.
-      </p>
-      <div class="hero-actions">
-        <a href="#launch" class="btn btn-solid">Open Final Slide</a>
-        <a href="#work" class="btn btn-ghost">Preview Sections</a>
+    <section id="journey" class="slide hero">
+      <div class="hero-shell">
+        <div>
+          <p class="eyebrow">Slide 01</p>
+          <h1>PRAXXYS JOURNEY</h1>
+          <p class="lead">
+            My progressive journey at Praxxys from January to April, highlighting key learnings, accomplishments,
+            and plans for growth.
+          </p>
+          <div class="hero-actions">
+            <a href="#april" class="btn btn-solid">April Plan</a>
+            <a href="#plans" class="btn btn-ghost">Improvement Plan</a>
+            <button type="button" class="btn btn-ghost" :disabled="isExporting" @click="handleExport">
+              {{ isExporting ? 'Preparing PDF...' : 'Export to PDF' }}
+            </button>
+          </div>
+        </div>
+        <aside class="hero-stats" aria-label="Journey summary">
+          <article v-for="stat in journeyStats" :key="stat.label" class="stat-tile">
+            <p>{{ stat.label }}</p>
+            <strong>{{ stat.value }}</strong>
+          </article>
+        </aside>
       </div>
     </section>
 
-    <section id="signal" class="slide split">
+    <section id="learnings" class="slide split">
       <article>
         <p class="eyebrow">Slide 02</p>
-        <h2>Signal first, details second.</h2>
+        <h2>Key Learnings</h2>
         <p>
-          The layout keeps attention on your message through wide spacing, bold type,
-          and a restrained color palette.
+          Stronger understanding of architecture, standards, and real-world project
+          workflow improved delivery confidence and system-level thinking.
         </p>
+        <ul class="feature-list">
+          <li>Stronger backend architectural thinking and package-level awareness</li>
+          <li>Improved API quality process through QA collaboration and fixes</li>
+          <li>Better alignment with project lifecycle, expectations, and delivery pacing</li>
+        </ul>
       </article>
-      <div class="metrics" role="list" aria-label="Key stats">
-        <div v-for="stat in quickStats" :key="stat.label" role="listitem" class="metric-card">
-          <span>{{ stat.label }}</span>
-          <strong>{{ stat.value }}</strong>
+      <div class="metrics" role="list" aria-label="Key learnings">
+        <div v-for="item in keyLearnings" :key="item" role="listitem" class="metric-card">
+          <strong>{{ item }}</strong>
         </div>
       </div>
     </section>
 
-    <section id="work" class="slide panel">
+    <section id="accomplishments" class="slide panel">
       <p class="eyebrow">Slide 03</p>
-      <h2>Showcase your projects like a keynote.</h2>
-      <div class="showcase-grid">
-        <article class="showcase-block accent-a">
-          <p>Case Study A</p>
-          <h3>Payment platform redesign</h3>
-          <small>Clear conversion path with reduced friction.</small>
-        </article>
-        <article class="showcase-block accent-b">
-          <p>Case Study B</p>
-          <h3>Developer portfolio narrative</h3>
-          <small>From technical details to engaging story flow.</small>
-        </article>
-      </div>
-    </section>
-
-    <section id="method" class="slide panel">
-      <p class="eyebrow">Slide 04</p>
-      <h2>Principles that keep it sharp.</h2>
-      <div class="principles" role="list">
-        <article v-for="item in principles" :key="item.title" role="listitem" class="principle-card">
-          <h3>{{ item.title }}</h3>
-          <p>{{ item.text }}</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="launch" class="slide outro">
-      <p class="eyebrow">Final Slide</p>
-      <h2>Ready for Vercel.</h2>
-      <p>
-        Deploy as a static site in one click. Keep the storytelling format and update
-        slide content as your work evolves.
+      <h2>Projects Handled (Jan-Mar)</h2>
+      <p class="section-note">
+        Transitioned from early-stage adjustment to handling critical issues and driving
+        end-to-end delivery.
       </p>
-      <div class="terminal-like">npm run build && vercel --prod</div>
+      <div class="principles" role="list">
+        <article v-for="report in projectReports" :key="report.project" class="principle-card" role="listitem">
+          <h3>{{ report.project }}</h3>
+          <p class="eyebrow">Workload</p>
+          <ul>
+            <li v-for="item in report.workload" :key="item">{{ item }}</li>
+          </ul>
+          <p class="eyebrow">Bottlenecks</p>
+          <ul>
+            <li v-for="item in report.bottlenecks" :key="item">{{ item }}</li>
+          </ul>
+          <p class="eyebrow">Accomplishments</p>
+          <ul>
+            <li v-for="item in report.accomplishments" :key="item">{{ item }}</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="personalgrowth" class="slide panel">
+      <p class="eyebrow">Slide 04</p>
+      <h2>Personal Growth and Achievements</h2>
+      <p class="section-note">
+        Personal achievements separated from project delivery to highlight individual growth.
+      </p>
+      <div class="growth-layout" role="list" aria-label="Personal growth details">
+        <article class="growth-main-card" role="listitem">
+          <h3>Personal Achievements</h3>
+          <ol class="growth-list">
+            <li v-for="(item, index) in personalGrowth" :key="item">
+              <span class="growth-index">{{ index + 1 }}</span>
+              <span>{{ item }}</span>
+            </li>
+          </ol>
+        </article>
+        <aside class="growth-highlight" role="listitem">
+          <p class="eyebrow">Growth Snapshot</p>
+          <h3>Faster Delivery with Stronger Accountability</h3>
+          <div class="growth-tags" aria-label="Growth themes">
+            <span>Dev Speed</span>
+            <span>Confidence</span>
+            <span>Prioritization</span>
+            <span>Accountability</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="april" class="slide panel">
+      <p class="eyebrow">Slide 05</p>
+      <h2>Detailed April Schedule and Plans</h2>
+      <div class="delay-warning" role="note" aria-live="polite">
+        <span>Timeline update: </span><br />
+        We are currently delayed by 1 week from the original April schedule, and the total E2E core features are estimated at 80+ hours.
+      </div>
+      <div class="phase-strip" role="list" aria-label="DOXO phases">
+        <article class="phase-card" role="listitem">
+          <p>Phase 1 • Apr 1-17</p>
+          <h3>E2E function for client demo</h3>
+        </article>
+        <article class="phase-card phase-card-alt" role="listitem">
+          <p>Phase 2 • Apr 20-24</p>
+          <h3>QA fixings and refinements</h3>
+        </article>
+      </div>
+
+      <div class="calendar-wrap">
+        <h3>April Week-by-Week Calendar (2026)</h3>
+        <table class="calendar-table" aria-label="April 2026 weekly calendar">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Dates</th>
+              <th>Phase</th>
+              <th>Primary Focus</th>
+              <th>Planned Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in aprilCalendar" :key="row.week" :class="getPhaseClass(row.phase)">
+              <td>{{ row.week }}</td>
+              <td>{{ row.dates }}</td>
+              <td>{{ row.phase }}</td>
+              <td>{{ row.focus }}</td>
+              <td>{{ row.output }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <section id="plans" class="slide outro">
+      <p class="eyebrow">Slide 06</p>
+      <h2>Plans and Areas for Improvement Q2</h2>
+      <p class="section-note">
+        April execution priorities focused on faster delivery, fewer QA issues, and
+        stronger end-to-end ownership.
+      </p>
+      <div class="plans-grid" role="list">
+        <article class="principle-card plan-card" role="listitem">
+          <h3>Plans for April</h3>
+          <ul>
+            <li v-for="plan in aprilPlans" :key="plan">{{ plan }}</li>
+          </ul>
+        </article>
+        <article class="principle-card plan-card" role="listitem">
+          <h3>Areas for Improvement</h3>
+          <ul>
+            <li v-for="area in improvementAreas" :key="area">{{ area }}</li>
+          </ul>
+        </article>
+      </div>
     </section>
   </main>
 </template>
