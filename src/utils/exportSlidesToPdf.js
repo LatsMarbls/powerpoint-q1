@@ -33,6 +33,29 @@ const buildCanvasSlice = (sourceCanvas, startY, sliceHeight) => {
   return sliceCanvas
 }
 
+const forceExportTextColors = (rootElement) => {
+  const elements = rootElement.querySelectorAll('*')
+
+  elements.forEach((element) => {
+    element.style.setProperty('color', '#111', 'important')
+    element.style.setProperty('-webkit-text-fill-color', '#111', 'important')
+    element.style.setProperty('text-shadow', 'none', 'important')
+    element.style.setProperty('opacity', '1', 'important')
+    element.style.setProperty('filter', 'none', 'important')
+    element.style.setProperty('mix-blend-mode', 'normal', 'important')
+  })
+
+  const exportCards = rootElement.querySelectorAll('.metric-card, .principle-card, .growth-main-card, .growth-highlight, .phase-card, .plan-card, .calendar-wrap, .showcase-block, .terminal-like, .stat-tile')
+
+  exportCards.forEach((card) => {
+    card.style.setProperty('background', '#fff', 'important')
+    card.style.setProperty('border-color', '#d0d0d0', 'important')
+    card.style.setProperty('box-shadow', 'none', 'important')
+    card.style.setProperty('opacity', '1', 'important')
+    card.style.setProperty('filter', 'none', 'important')
+  })
+}
+
 export const exportSlidesToPdf = async ({
   rootSelector = '.deck',
   fileName = 'praxxys-journey.pdf',
@@ -49,44 +72,57 @@ export const exportSlidesToPdf = async ({
     throw new Error('No slides were found to export.')
   }
 
-  await waitForAssets()
+  document.documentElement.classList.add('exporting-pdf')
 
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
-  const pageWidth = pdf.internal.pageSize.getWidth()
-  const pageHeight = pdf.internal.pageSize.getHeight()
+  try {
+    await waitForAssets()
 
-  let isFirstPage = true
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+    const pageWidth = pdf.internal.pageSize.getWidth()
+    const pageHeight = pdf.internal.pageSize.getHeight()
 
-  for (const slide of slides) {
-    const canvas = await html2canvas(slide, {
-      backgroundColor: '#ffffff',
-      scale: 2,
-      useCORS: true,
-      scrollX: 0,
-      scrollY: -window.scrollY,
-      ignoreElements: (element) =>
-        element.classList?.contains('rail') || element.classList?.contains('hero-actions'),
-    })
+    let isFirstPage = true
 
-    const sliceHeight = Math.floor((canvas.width * pageHeight) / pageWidth)
+    for (const slide of slides) {
+      const canvas = await html2canvas(slide, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+        onclone: (clonedDocument) => {
+          clonedDocument.documentElement.classList.add('exporting-pdf')
 
-    let renderedHeight = 0
+          const clonedSlide = clonedDocument.querySelector(`[id="${slide.id}"]`)
 
-    while (renderedHeight < canvas.height) {
-      const nextSliceHeight = Math.min(sliceHeight, canvas.height - renderedHeight)
-      const sliceCanvas = buildCanvasSlice(canvas, renderedHeight, nextSliceHeight)
-      const imageData = sliceCanvas.toDataURL('image/png')
-      const imageHeight = (nextSliceHeight * pageWidth) / canvas.width
+          if (clonedSlide) {
+            forceExportTextColors(clonedSlide)
+          }
+        },
+      })
 
-      if (!isFirstPage) {
-        pdf.addPage()
+      const sliceHeight = Math.floor((canvas.width * pageHeight) / pageWidth)
+
+      let renderedHeight = 0
+
+      while (renderedHeight < canvas.height) {
+        const nextSliceHeight = Math.min(sliceHeight, canvas.height - renderedHeight)
+        const sliceCanvas = buildCanvasSlice(canvas, renderedHeight, nextSliceHeight)
+        const imageData = sliceCanvas.toDataURL('image/png')
+        const imageHeight = (nextSliceHeight * pageWidth) / canvas.width
+
+        if (!isFirstPage) {
+          pdf.addPage()
+        }
+
+        pdf.addImage(imageData, 'PNG', 0, 0, pageWidth, imageHeight)
+        isFirstPage = false
+        renderedHeight += nextSliceHeight
       }
-
-      pdf.addImage(imageData, 'PNG', 0, 0, pageWidth, imageHeight)
-      isFirstPage = false
-      renderedHeight += nextSliceHeight
     }
-  }
 
-  pdf.save(fileName)
+    pdf.save(fileName)
+  } finally {
+    document.documentElement.classList.remove('exporting-pdf')
+  }
 }
