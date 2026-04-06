@@ -64,19 +64,20 @@ const personalGrowth = [
   'Increased responsibility in handling backend deliverables',
 ]
 
-const aprilPlans = [
-  'Deliver tasks faster with improved quality',
-  'Reduce QA issues through better development practices',
-  'Strengthen understanding of full project lifecycle',
-  'Improve leadership',
+const improvementAreas = [
+  'Slow debugging turnaround when handling unfamiliar codebases',
+  'Limited experience in designing scalable system architecture',
+  'Inconsistent code quality leading to QA rework',
+  'Difficulty prioritizing tasks under tight deadlines',
+  'Needs improvement in making independent technical decisions'
 ]
 
-const improvementAreas = [
-  'Improve debugging and problem-solving speed',
-  'Strengthen system architecture thinking',
-  'Enhance code quality to minimize QA fixes',
-  'Improve time management and prioritization',
-  'Build confidence in handling projects',
+const aprilPlans = [
+  'Reduce debugging time by documenting root causes and solutions for every issue encountered',
+  'Study system architecture patterns (MVC, modular design) in current tasks and outside resources',
+  'Follow coding standards and perform self-code reviews before submitting to QA',
+  'Use task prioritization techniques (daily planning + time blocking) to manage workload',
+  'Take ownership of at least one feature or task independently from start to finish'
 ]
 
 
@@ -265,7 +266,7 @@ const slideLinks = [
       <h2>Detailed April Schedule and Plans</h2>
       <div class="delay-warning" role="note" aria-live="polite">
         <span>Timeline update: </span><br />
-        We are currently delayed by 1 week from the original April schedule, and the total E2E core features are estimated at 80+ hours.
+        We are currently delayed by 1 week from the original March schedule, and the total E2E core features are estimated at 80+ hours.
       </div>
       <div class="phase-strip" role="list" aria-label="DOXO phases">
         <article class="phase-card" role="listitem">
