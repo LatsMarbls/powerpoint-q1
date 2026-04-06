@@ -67,15 +67,15 @@ const personalGrowth = [
 const improvementAreas = [
   'Slow debugging turnaround when handling unfamiliar codebases',
   'Limited experience in designing scalable system architecture',
-  'Inconsistent code quality leading to QA rework',
+  'Needs improvement in code quality',
   'Difficulty prioritizing tasks under tight deadlines',
   'Needs improvement in making independent technical decisions'
 ]
 
 const aprilPlans = [
-  'Reduce debugging time by documenting root causes and solutions for every issue encountered',
+  'Reduce debugging time by reading project documents and analyzing root causes before coding',
   'Study system architecture patterns (MVC, modular design) in current tasks and outside resources',
-  'Follow coding standards and perform self-code reviews before submitting to QA',
+  'Perform self-code reviews before submitting to QA',
   'Use task prioritization techniques (daily planning + time blocking) to manage workload',
   'Take ownership of at least one feature or task independently from start to finish'
 ]
